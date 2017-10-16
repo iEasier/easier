@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!--<include layout="@layout/top_main" />-->
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/top_main"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="#303F9F" >
+
+        <TextView
+            android:id="@+id/text_title"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:ellipsize="marquee"
+            android:gravity="center_horizontal|center"
+            android:textColor="#ffffffff"
+            android:textSize="20dp" />
+
+        <Button
+            android:id="@+id/button_backward"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/back"
+            android:drawablePadding="6dp"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:onClick="onClick"
+            android:paddingLeft="5dp"
+            android:textColor="#ffffffff"
+            android:textSize="18dp"
+            android:visibility="invisible" />
+
+        <Button
+            android:id="@+id/button_forward"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/forward"
+            android:drawablePadding="6dp"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:onClick="onClick"
+            android:paddingLeft="5dp"
+            android:textColor="#ffffffff"
+            android:textSize="18dp"
+            android:visibility="invisible" />
+
+        <Button
+            android:id="@+id/button_share"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/share"
+            android:onClick="onClick"
+            android:layout_marginTop="10dp"
+            android:textColor="#ffffffff"
+            android:visibility="invisible" />
+
+    </RelativeLayout>
+
+    <FrameLayout
+        android:id="@+id/topbar_main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#fff" >
+    </FrameLayout>
+
+</LinearLayout>

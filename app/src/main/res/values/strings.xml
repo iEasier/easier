@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">电梯宝</string>
+    <string name="action_settings">设置</string>
+    <string name="home_btnOne">技术资料库</string>
+    <string name="home_btnTwo">故障代码资料</string>
+    <string name="home_btnThree">已下载资料</string>
+    <string name="home_btnFour">密码及锁梯资料</string>
+    <string name="home_btnFive">在线翻译</string>
+    <string name="home_btnSix">进制换算</string>
+    <string name="back">返回</string>
+    <string name="share_cancel">取消分享</string>
+    <string name="QQ">QQ</string>
+    <string name="WeiXin">微信</string>
+    <string name="share_dec">每个人心中都有非常喜欢的一句话,关于爱情、友情、人生、理想等。这些话能给您带来无限的正能量。“句句经典”经典语句分享平台,分享您最喜欢的经典语句!</string>
+</resources>
