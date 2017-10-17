@@ -1,4 +1,5 @@
 package easier.com.easier;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -6,11 +7,15 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 
-import java.util.Date;
-
 
 public class MainActivity extends TopBarActivity {
-    private long mExitTime = new Date().getTime();
+    private Button btnOne;
+    private Button btnTwo;
+    private Button btnThree;
+    private Button btnFour;
+    private Button btnFive;
+    private Button btnSix;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -18,19 +23,19 @@ public class MainActivity extends TopBarActivity {
         setTitle("电梯");
         showShare();
         // 首页六个按钮
-        Button btnOne = (Button) findViewById(R.id.btnOne);
-        Button btnTwo = (Button) findViewById(R.id.btnTwo);
-        Button btnThree = (Button) findViewById(R.id.btnThree);
-        Button btnFour = (Button) findViewById(R.id.btnFour);
-        Button btnFive = (Button) findViewById(R.id.btnFive);
-        Button btnSix = (Button) findViewById(R.id.btnSix);
+        btnOne = findViewById(R.id.btnOne);
+        btnTwo = findViewById(R.id.btnTwo);
+        btnThree = findViewById(R.id.btnThree);
+        btnFour = findViewById(R.id.btnFour);
+        btnFive = findViewById(R.id.btnFive);
+        btnSix = findViewById(R.id.btnSix);
 
-        btnOne.setOnClickListener(new View.OnClickListener(){
+        btnOne.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.i("btnOne","btnOne点击事件");
+                Log.i("btnOne", "btnOne点击事件");
                 Intent intent = new Intent();
-                intent.setClass(MainActivity.this,ResourceActivity.class);
+                intent.setClass(MainActivity.this, ResourceActivity.class);
                 MainActivity.this.startActivity(intent);
             }
         });
@@ -67,15 +72,15 @@ public class MainActivity extends TopBarActivity {
     }
 
     @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event){
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
         // Log.i("KeyEvent.keyCode",""+keyCode);
-        if(keyCode == KeyEvent.KEYCODE_BACK){
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
             MainActivity.this.finish();
             System.exit(0);
-            Log.i("進入","if");
+            Log.i("進入", "if");
             return true;
         }
-        Log.i("進入","or");
+        Log.i("進入", "or");
         return false;
     }
 }

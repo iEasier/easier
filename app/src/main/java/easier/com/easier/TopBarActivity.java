@@ -14,7 +14,6 @@ import android.widget.TextView;
  */
 public class TopBarActivity extends Activity {
 
-    //    private RelativeLayout mLayoutTitleBar;
     private TextView mTitleTextView;
     private Button mBackwardbButton;
     private Button mForwardButton;
@@ -121,9 +120,6 @@ public class TopBarActivity extends Activity {
         onContentChanged();
     }
 
-    /* (non-Javadoc)
-     * @see android.app.Activity#setContentView(android.view.View, android.view.ViewGroup.LayoutParams)
-     */
     @Override
     public void setContentView(View view, LayoutParams params) {
         mContentLayout.removeAllViews();
@@ -137,12 +133,6 @@ public class TopBarActivity extends Activity {
             public void onClick(View view) {
                 ShareActivity shareDialog = new ShareActivity();
                 shareDialog.show(getFragmentManager(), "");
-//                Intent intent=new Intent(Intent.ACTION_SEND);
-//                intent.setType("image/*");
-//                intent.putExtra(Intent.EXTRA_SUBJECT, "Share");
-//                intent.putExtra(Intent.EXTRA_TEXT, "I have successfully share my message through my app");
-//                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                startActivity(intent);
             }
         });
     }
