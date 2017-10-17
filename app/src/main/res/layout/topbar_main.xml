@@ -55,7 +55,8 @@
             android:layout_alignParentRight="true"
             android:background="@drawable/share"
             android:onClick="onClick"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="10dp"
             android:textColor="#ffffffff"
             android:visibility="invisible" />
 
