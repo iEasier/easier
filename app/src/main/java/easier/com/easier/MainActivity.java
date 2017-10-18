@@ -6,15 +6,22 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 
-public class MainActivity extends TopBarActivity {
+public class MainActivity extends TopBarActivity implements View.OnClickListener {
     private Button btnOne;
     private Button btnTwo;
     private Button btnThree;
     private Button btnFour;
     private Button btnFive;
     private Button btnSix;
+    private Button home_RecommendFocus;
+    private Button home_Focus;
+    private Button home_SettingFocus;
+    private Button home_Recommend;
+    private Button home;
+    private Button home_Setting;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +29,7 @@ public class MainActivity extends TopBarActivity {
         setContentView(R.layout.activity_main);
         setTitle("电梯");
         showShare();
+        changeStatus();
         // 首页六个按钮
         btnOne = findViewById(R.id.btnOne);
         btnTwo = findViewById(R.id.btnTwo);
@@ -82,5 +90,44 @@ public class MainActivity extends TopBarActivity {
         }
         Log.i("進入", "or");
         return false;
+    }
+
+    public void changeStatus() {
+        home_RecommendFocus = findViewById(R.id.home_RecommendFocus);
+        home_Focus = findViewById(R.id.home_Focus);
+        home_SettingFocus = findViewById(R.id.home_SettingFocus);
+        home_Recommend = findViewById(R.id.home_Recommend);
+        home = findViewById(R.id.home);
+        home_Setting = findViewById(R.id.home_Setting);
+        home_RecommendFocus.setOnClickListener(this);
+        home_Focus.setOnClickListener(this);
+        home_SettingFocus.setOnClickListener(this);
+        home_Recommend.setOnClickListener(this);
+        home.setOnClickListener(this);
+        home_Setting.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.home_Recommend:
+                home_RecommendFocus.setVisibility(View.VISIBLE);
+                home_Focus.setVisibility(View.INVISIBLE);
+                home_SettingFocus.setVisibility(View.INVISIBLE);
+                Toast.makeText(this, "推荐处于维护中...", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.home:
+                home_Focus.setVisibility(View.VISIBLE);
+                home_SettingFocus.setVisibility(View.INVISIBLE);
+                home_RecommendFocus.setVisibility(View.INVISIBLE);
+                Toast.makeText(this, "当前无最新内容", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.home_Setting:
+                home_SettingFocus.setVisibility(View.VISIBLE);
+                home_Focus.setVisibility(View.INVISIBLE);
+                home_RecommendFocus.setVisibility(View.INVISIBLE);
+                Toast.makeText(this, "设置处于维护中...", Toast.LENGTH_SHORT).show();
+                break;
+        }
     }
 }

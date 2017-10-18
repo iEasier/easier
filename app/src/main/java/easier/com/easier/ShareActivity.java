@@ -15,10 +15,6 @@ import android.widget.TextView;
 
 import easier.com.easier.tools.DialogFragmentActivity;
 
-/**
- * Created by Administrator on 2017/10/16.
- */
-
 public class ShareActivity extends DialogFragmentActivity{
     private Button share_qq;
     private Button share_weixin;
@@ -87,8 +83,6 @@ public class ShareActivity extends DialogFragmentActivity{
             public void onClick(View view) {
                 Log.i("取消：", "取消分享执行！");
                 ShareActivity.this.dismiss();
-//                ShareActivity shareDialog = new ShareActivity();
-//                shareDialog.dismiss();
             }
         });
     }

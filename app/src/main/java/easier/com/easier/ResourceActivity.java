@@ -1,5 +1,6 @@
 package easier.com.easier;
 
+import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -13,8 +14,12 @@ import android.widget.TextView;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
-public class ResourceActivity extends TopBarActivity {
+import easier.com.easier.tools.InterfaceActivity;
+import easier_interface.SourceFiles;
+
+public class ResourceActivity extends TopBarActivity implements SourceFiles {
     private ArrayList<Object> fileLists = new ArrayList<Object>();
 
     @Override
@@ -25,7 +30,6 @@ public class ResourceActivity extends TopBarActivity {
         showBackwardView(R.id.button_backward, false, true);
         showShare();
         createViews(20);
-
         Button button_backward = findViewById(R.id.button_backward);
         button_backward.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,6 +51,8 @@ public class ResourceActivity extends TopBarActivity {
     }
 
     public void createViews(int length) {
+        InterfaceActivity in = new InterfaceActivity();
+        in.SendRequest();
         Drawable drawable = this.getDrawable(R.drawable.file);
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
@@ -56,7 +62,7 @@ public class ResourceActivity extends TopBarActivity {
         Button Btn[] = new Button[fileNames.size()];
         TextView Tex[] = new TextView[fileNames.size()];
         int j = -1;
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 20; i++) {
             Btn[i] = new Button(this);
             Btn[i].setId(2000 + i);
             Btn[i].setBackground(drawable);
@@ -102,5 +108,10 @@ public class ResourceActivity extends TopBarActivity {
             }
         }
         return fileLists;
+    }
+
+    @Override
+    public List getSourceNames(String s) {
+        return null;
     }
 }
