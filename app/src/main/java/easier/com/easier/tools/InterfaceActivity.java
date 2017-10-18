@@ -1,6 +1,9 @@
 package easier.com.easier.tools;
 
+import android.support.annotation.AnyRes;
 import android.util.Log;
+
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -9,30 +12,40 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class InterfaceActivity {
-    private String strURL = "http://172.16.1.188:8080/ieasier/Test";
+    private static String strURL = "http://192.168.3.28:8080/ieasier/";
+
+
+    public static void SendRequest(String interfaceName) {
+        JSONObject jsonObject = new JSONObject();
+        String interfaceURL = strURL + interfaceName;
+        String result = getURLContent(interfaceURL);
+        Log.d("调取接口成功：", result);
+    }
+
 
     /**
      * 程序中访问http数据接口
      */
 
-    public static String getURLContent(String urlStr) {
+    private static String getURLContent(String urlStr) {
         /** 网络的url地址 */
         URL url = null;
         /** http连接 */
         HttpURLConnection httpConn = null;
-            /**//** 输入流 */
+        /** 输入流 */
         BufferedReader in = null;
-        StringBuffer sb = new StringBuffer();
-        String result = sb.toString();
+        StringBuffer stringBuffer = new StringBuffer();
+        String result = null;
         try {
             url = new URL(urlStr);
-            in = new BufferedReader(new InputStreamReader(url.openStream(), "GBK"));
+            in = new BufferedReader(new InputStreamReader(url.openStream(), "UTF-8"));
             String str = null;
             while ((str = in.readLine()) != null) {
-                sb.append(str);
+                stringBuffer.append(str);
             }
+            result = stringBuffer.toString();
         } catch (IOException ex) {
-            Log.d("调取接口异常", "调取接口异常:" + ex.getMessage());
+            Log.d("调取接口异常", ex.getMessage());
         } finally {
             try {
                 if (in != null) {
@@ -43,10 +56,5 @@ public class InterfaceActivity {
             }
         }
         return result;
-    }
-
-    public void SendRequest() {
-        String result = getURLContent(strURL);
-        Log.d("调取接口", "result:" + result);
     }
 }

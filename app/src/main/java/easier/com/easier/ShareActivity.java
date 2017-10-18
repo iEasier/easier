@@ -72,6 +72,7 @@ public class ShareActivity extends DialogFragmentActivity{
                 Intent intent = new Intent(Intent.ACTION_SEND);
                 intent.setType("image/*");
                 intent.putExtra(Intent.EXTRA_SUBJECT, "Share");
+                intent.putExtra ( "Kdescription" ,R.drawable.weixin) ;
                 intent.putExtra(Intent.EXTRA_TEXT, "http://www.baidu.com");
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(Intent.createChooser(intent, "微信 分享执行！"));

@@ -1,6 +1,5 @@
 package easier.com.easier;
 
-import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -17,9 +16,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import easier.com.easier.tools.InterfaceActivity;
-import easier_interface.SourceFiles;
 
-public class ResourceActivity extends TopBarActivity implements SourceFiles {
+
+public class ResourceActivity extends TopBarActivity {
     private ArrayList<Object> fileLists = new ArrayList<Object>();
 
     @Override
@@ -30,6 +29,12 @@ public class ResourceActivity extends TopBarActivity implements SourceFiles {
         showBackwardView(R.id.button_backward, false, true);
         showShare();
         createViews(20);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                new InterfaceActivity().SendRequest("Test");
+            }
+        }).start();
         Button button_backward = findViewById(R.id.button_backward);
         button_backward.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,8 +56,6 @@ public class ResourceActivity extends TopBarActivity implements SourceFiles {
     }
 
     public void createViews(int length) {
-        InterfaceActivity in = new InterfaceActivity();
-        in.SendRequest();
         Drawable drawable = this.getDrawable(R.drawable.file);
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
@@ -108,10 +111,5 @@ public class ResourceActivity extends TopBarActivity implements SourceFiles {
             }
         }
         return fileLists;
-    }
-
-    @Override
-    public List getSourceNames(String s) {
-        return null;
     }
 }
