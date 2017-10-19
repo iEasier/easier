@@ -18,6 +18,9 @@ import android.widget.Toast;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.Objects;
+
 import easier.com.easier.R;
 import easier.com.easier.TopBarActivity;
 import easier.com.easier.tools.InterfaceActivity;
@@ -105,7 +108,6 @@ public class ResourceActivity extends TopBarActivity {
                     intent.setClass(ResourceActivity.this, ResourceSubActivity.class);
                     intent.putExtra("fileName", "" + fileLists.get(index));
                     startActivity(intent);
-                    ResourceActivity.this.finish();
                 }
             });
         }

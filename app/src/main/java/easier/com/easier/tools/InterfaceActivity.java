@@ -12,6 +12,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class InterfaceActivity {
+
     private static String strURL = "http://172.16.1.188:8080/ieasier/";
     private static String ENCODING_UTF_8 = "UTF-8";
 
@@ -97,6 +98,7 @@ public class InterfaceActivity {
                 Log.d("调取接口返回码", "" + responseCode);
             }
         } catch (IOException ex) {
+            result = "{'retCode':-1}";
             Log.d("调取接口异常 IOException", ex.getMessage());
         } finally {
             try {
@@ -104,7 +106,7 @@ public class InterfaceActivity {
                     responseReader.close();
                 }
             } catch (Exception e) {
-                Log.i("调取接口异常：", e.getMessage());
+                Log.i("调取接口异常", e.getMessage());
             }
         }
         return result;
@@ -132,6 +134,7 @@ public class InterfaceActivity {
             }
             result = stringBuffer.toString();
         } catch (IOException ex) {
+            result = "{'retCode':-1}";
             Log.e("调取接口异常", ex.getMessage());
         } finally {
             try {
@@ -139,7 +142,7 @@ public class InterfaceActivity {
                     in.close();
                 }
             } catch (Exception e) {
-                Log.e("调取接口异常：", e.getMessage());
+                Log.e("调取接口异常", e.getMessage());
             }
         }
         return result;
