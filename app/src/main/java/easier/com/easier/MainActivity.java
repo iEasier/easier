@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import easier.com.easier.Resource.ResourceActivity;
+
 
 public class MainActivity extends TopBarActivity implements View.OnClickListener {
     private Button btnOne;

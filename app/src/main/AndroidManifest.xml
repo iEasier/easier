@@ -18,7 +18,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ResourceActivity"/>
+        <activity android:name=".Resource.ResourceActivity"/>
+        <activity android:name=".Resource.ResourceSubActivity"/>
     </application>
     <uses-permission android:name="android.permission.INTERNET" />
 
