@@ -81,8 +81,9 @@ public class ResourceSubActivity extends TopBarActivity {
     }
 
     public void createSubViews(JSONObject jsonResp) {
-        JSONArray contentNames = jsonResp.getJSONArray("contentNames");
-        int ListLength = contentNames.size();
+        final JSONArray fileName = jsonResp.getJSONArray("fileName");
+        JSONArray fileSize = jsonResp.getJSONArray("fileSize");
+        int ListLength = fileName.size();
         Drawable drawable = this.getDrawable(R.drawable.line);
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
@@ -93,7 +94,7 @@ public class ResourceSubActivity extends TopBarActivity {
         ImageView iView[] = new ImageView[ListLength];
         for (int i = 0; i < ListLength; i++) {
             TexName[i] = new TextView(this);
-            TexName[i].setText("傲慢与偏见第" + i + "章节");
+            TexName[i].setText(fileName.get(i).toString());
             TexName[i].setId(3000 + i);
             TexName[i].setGravity(Gravity.LEFT | Gravity.CENTER);
             TexName[i].setTextSize(16);
@@ -107,7 +108,7 @@ public class ResourceSubActivity extends TopBarActivity {
             layout.addView(TexName[i], TexNameParams);
 
             TexSize[i] = new TextView(this);
-            TexSize[i].setText(i + " Mb");
+            TexSize[i].setText(fileSize.get(i).toString());
             TexSize[i].setId(4000 + i);
             TexSize[i].setTextSize(12);
             TexSize[i].setGravity(Gravity.RIGHT | Gravity.CENTER);
@@ -125,6 +126,21 @@ public class ResourceSubActivity extends TopBarActivity {
             RelativeLayout.LayoutParams iViewParams = new RelativeLayout.LayoutParams(widthPixels, 1);
             iViewParams.addRule(RelativeLayout.BELOW, 3000 + i);
             layout.addView(iView[i], iViewParams);
+
+            final int index = i;
+
+            TexSize[i].setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Toast.makeText(ResourceSubActivity.this,"当前点击："+ fileName.get(index).toString(),Toast.LENGTH_SHORT).show();
+                }
+            });
+            TexName[i].setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Toast.makeText(ResourceSubActivity.this,"当前点击："+ fileName.get(index).toString(),Toast.LENGTH_SHORT).show();
+                }
+            });
         }
     }
 }

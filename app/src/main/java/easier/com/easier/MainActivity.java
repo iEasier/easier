@@ -8,6 +8,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.tencent.mm.sdk.openapi.IWXAPI;
+import com.tencent.mm.sdk.openapi.WXAPIFactory;
+
 import easier.com.easier.Resource.ResourceActivity;
 
 
@@ -24,6 +27,9 @@ public class MainActivity extends TopBarActivity implements View.OnClickListener
     private Button home_Recommend;
     private Button home;
     private Button home_Setting;
+    // 向微信注册自己的APP_ID
+    private static final String App_ID = "你注册的APP_ID";
+    private IWXAPI api;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -131,5 +137,11 @@ public class MainActivity extends TopBarActivity implements View.OnClickListener
                 Toast.makeText(this, "设置处于维护中...", Toast.LENGTH_SHORT).show();
                 break;
         }
+    }
+
+    public void RegisterWeChat() {
+        api = WXAPIFactory.createWXAPI(this, App_ID, true);
+        api.registerApp(App_ID);
+
     }
 }
