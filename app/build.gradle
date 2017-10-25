@@ -1,6 +1,14 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        config {
+            keyAlias 'easier'
+            keyPassword 'AZXC123456'
+            storeFile file('C:/Users/Administrator/keystore.jks')
+            storePassword 'AZXC123456'
+        }
+    }
     compileSdkVersion 26
     buildToolsVersion "26.0.1"
     defaultConfig {
@@ -15,6 +23,10 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
+        }
+        debug {
+            signingConfig signingConfigs.config
         }
     }
 }
@@ -24,15 +36,16 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+    compile 'com.facebook.fresco:fresco:0.12.0'
     compile 'com.android.support:appcompat-v7:26.+'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.android.support:design:26.+'
     testCompile 'junit:junit:4.12'
-    compile files('libs/easier.jar')
     compile files('libs/json-lib-2.4-jdk15.jar')
     compile files('libs/commons-collections-3.2.1.jar')
     compile files('libs/commons-lang-2.4.jar')
     compile files('libs/ezmorph-1.0.6.jar')
     compile files('libs/commons-logging-1.1.1.jar')
     compile files('libs/commons-beanutils-1.9.2.jar')
+    compile files('libs/libammsdk.jar')
 }
