@@ -8,9 +8,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.facebook.drawee.backends.pipeline.Fresco;
 import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
 
+import easier.com.easier.Recommend.RecommendActivity;
 import easier.com.easier.Resource.ResourceActivity;
 
 
@@ -35,6 +37,7 @@ public class MainActivity extends TopBarActivity implements View.OnClickListener
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Fresco.initialize(this);
         setTitle("电梯");
         showShare();
         changeStatus();
@@ -122,7 +125,9 @@ public class MainActivity extends TopBarActivity implements View.OnClickListener
                 home_RecommendFocus.setVisibility(View.VISIBLE);
                 home_Focus.setVisibility(View.INVISIBLE);
                 home_SettingFocus.setVisibility(View.INVISIBLE);
-                Toast.makeText(this, "推荐处于维护中...", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent();
+                intent.setClass(MainActivity.this, RecommendActivity.class);
+                startActivity(intent);
                 break;
             case R.id.home:
                 home_Focus.setVisibility(View.VISIBLE);

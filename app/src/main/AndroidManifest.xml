@@ -20,6 +20,8 @@
         </activity>
         <activity android:name=".Resource.ResourceActivity"/>
         <activity android:name=".Resource.ResourceSubActivity"/>
+        <activity android:name=".Recommend.RecommendActivity"/>
+        <activity android:name=".tools.NotificationActivity"/>
     </application>
     <!--权限申请-->
     <uses-permission android:name="android.permission.INTERNET" />

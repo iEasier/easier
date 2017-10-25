@@ -4,11 +4,11 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -17,13 +17,12 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
-import easier.com.easier.MainActivity;
 import easier.com.easier.R;
 import easier.com.easier.TopBarActivity;
+import easier.com.easier.tools.DownloadActivity;
 import easier.com.easier.tools.InterfaceActivity;
 
 
@@ -36,6 +35,10 @@ public class ResourceSubActivity extends TopBarActivity {
         public void handleMessage(Message msg) {
             if (msg.what == 0) {
                 createSubViews(jsonResp);
+            } else if (msg.what == 1) {
+                Toast.makeText(ResourceSubActivity.this, "下载已完成", Toast.LENGTH_SHORT).show();
+            } else if (msg.what == 999) {
+                return;
             } else {
                 Toast.makeText(ResourceSubActivity.this, "服务器错误...", Toast.LENGTH_SHORT).show();
             }
@@ -51,7 +54,7 @@ public class ResourceSubActivity extends TopBarActivity {
         setTitle(fileName);
         showBackwardView(R.id.button_backward, false, true);
         showShare();
-        SendRequest("getFileContent",fileName);
+        SendRequest("getFileContent", fileName);
         button_backward = findViewById(R.id.button_backward);
         button_backward.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,6 +85,7 @@ public class ResourceSubActivity extends TopBarActivity {
 
     public void createSubViews(JSONObject jsonResp) {
         final JSONArray fileName = jsonResp.getJSONArray("fileName");
+        final JSONArray fileUrl = jsonResp.getJSONArray("fileUrl");
         JSONArray fileSize = jsonResp.getJSONArray("fileSize");
         int ListLength = fileName.size();
         Drawable drawable = this.getDrawable(R.drawable.line);
@@ -132,13 +136,37 @@ public class ResourceSubActivity extends TopBarActivity {
             TexSize[i].setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Toast.makeText(ResourceSubActivity.this,"当前点击："+ fileName.get(index).toString(),Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ResourceSubActivity.this, "正在下载中..." + fileName.get(index).toString(), Toast.LENGTH_SHORT).show();
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Looper.prepare();
+                            int status = new DownloadActivity().Download(fileUrl.get(index).toString(), ResourceSubActivity.this);
+                            Message message = new Message();
+                            message.what = status;
+                            handler.sendMessage(message);
+                            Looper.loop();
+                        }
+                    }).start();
+
                 }
             });
             TexName[i].setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Toast.makeText(ResourceSubActivity.this,"当前点击："+ fileName.get(index).toString(),Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ResourceSubActivity.this, "正在下载中..." + fileName.get(index).toString(), Toast.LENGTH_SHORT).show();
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Looper.prepare();
+                            int status = new DownloadActivity().Download(fileUrl.get(index).toString(), ResourceSubActivity.this);
+                            Message message = new Message();
+                            Log.i("status", "" + status);
+                            message.what = status;
+                            handler.sendMessage(message);
+                            Looper.loop();
+                        }
+                    }).start();
                 }
             });
         }
