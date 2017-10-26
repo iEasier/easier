@@ -74,6 +74,7 @@ public class ResourceActivity extends TopBarActivity {
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         int widthPixels = displayMetrics.widthPixels;
+        int heightPixel = (widthPixels - 50) / 4 + 140;
         RelativeLayout layout = this.findViewById(R.id.resources_Relative);
         int length = fileLists.size();
         Button Btn[] = new Button[length];
@@ -90,7 +91,7 @@ public class ResourceActivity extends TopBarActivity {
             //横坐标定位
             btParams.leftMargin = 10 + ((widthPixels - 50) / 4 + 10) * (i % 4);
             //纵坐标定位
-            btParams.topMargin = 20 + 400 * j;
+            btParams.topMargin = 20 + heightPixel * j;
             layout.addView(Btn[i], btParams);
             Tex[i] = new TextView(this);
             Tex[i].setText("" + fileLists.get(i));

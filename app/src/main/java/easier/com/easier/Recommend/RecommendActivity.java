@@ -74,18 +74,18 @@ public class RecommendActivity extends TopBarActivity {
             simpleDraweeView[i] = new SimpleDraweeView(this);
             simpleDraweeView[i].setId(5000 + i);
             simpleDraweeView[i].setImageURI(uri);
-            RelativeLayout.LayoutParams btParams = new RelativeLayout.LayoutParams((widthPixels - 45) / 2, 500);
+            RelativeLayout.LayoutParams btParams = new RelativeLayout.LayoutParams((widthPixels - 30) / 2, 500);
             if (i % 2 == 0) {
                 j++;
             }
             //横坐标定位
-            btParams.leftMargin = 15 + ((widthPixels - 45) / 2 + 15) * (i % 2);
+            btParams.leftMargin = 10 + ((widthPixels - 30) / 2 + 10) * (i % 2);
             //纵坐标定位
-            btParams.topMargin = 20 + 510 * j;
+            btParams.topMargin = 10 + 510 * j;
             layout.addView(simpleDraweeView[i], btParams);
 
             final int index = i;
-            Btn[i].setOnClickListener(new View.OnClickListener() {
+            simpleDraweeView[i].setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Log.i("点击文件夹", "当前点击的文件夹是" + index);

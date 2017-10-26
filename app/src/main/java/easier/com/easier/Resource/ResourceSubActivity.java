@@ -1,6 +1,7 @@
 package easier.com.easier.Resource;
 
 import android.content.Intent;
+import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
@@ -20,15 +21,19 @@ import android.widget.Toast;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
+import java.io.File;
+
 import easier.com.easier.R;
 import easier.com.easier.TopBarActivity;
 import easier.com.easier.tools.DownloadActivity;
 import easier.com.easier.tools.InterfaceActivity;
+import easier.com.easier.tools.OpenFileActivity;
 
 
 public class ResourceSubActivity extends TopBarActivity {
     private static JSONObject jsonResp;
     private Button button_backward;
+    private static String rootPath = "/sdcard/easier/";
 
     Handler handler = new Handler() {
         @Override
@@ -38,7 +43,9 @@ public class ResourceSubActivity extends TopBarActivity {
             } else if (msg.what == 1) {
                 Toast.makeText(ResourceSubActivity.this, "下载已完成", Toast.LENGTH_SHORT).show();
             } else if (msg.what == 999) {
-                return;
+                String urlPath = msg.getData().getString("urlPath");
+                Intent intent = new OpenFileActivity().openFile(urlPath);
+                startActivity(intent);
             } else {
                 Toast.makeText(ResourceSubActivity.this, "服务器错误...", Toast.LENGTH_SHORT).show();
             }
@@ -92,31 +99,49 @@ public class ResourceSubActivity extends TopBarActivity {
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         int widthPixels = displayMetrics.widthPixels;
+        int heightPixels = displayMetrics.heightPixels;
         RelativeLayout layout = this.findViewById(R.id.resources_sub);
         TextView TexName[] = new TextView[ListLength];
         TextView TexSize[] = new TextView[ListLength];
         ImageView iView[] = new ImageView[ListLength];
+
+        Paint paint = new Paint();
+        paint.setTextSize(16);
+        Paint.FontMetrics fm = paint.getFontMetrics();
+        int Height = (int) (4 * (Math.ceil(fm.descent - fm.top) + 2)) + 30;
+        int widthPixel = (int) (widthPixels * ((1080.0 - 200.0) / 1080.0));
         for (int i = 0; i < ListLength; i++) {
             TexName[i] = new TextView(this);
             TexName[i].setText(fileName.get(i).toString());
             TexName[i].setId(3000 + i);
             TexName[i].setGravity(Gravity.LEFT | Gravity.CENTER);
             TexName[i].setTextSize(16);
-            TexName[i].setWidth(widthPixels - 200);
-            TexName[i].setHeight(120);
-            RelativeLayout.LayoutParams TexNameParams = new RelativeLayout.LayoutParams(widthPixels - 200, ViewGroup.LayoutParams.WRAP_CONTENT);
+            TexName[i].setWidth(widthPixel);
+            TexName[i].setHeight(Height);
+            RelativeLayout.LayoutParams TexNameParams = new RelativeLayout.LayoutParams(widthPixel, ViewGroup.LayoutParams.WRAP_CONTENT);
             TexNameParams.leftMargin = 20;
             if (i > 0) {
                 TexNameParams.addRule(RelativeLayout.BELOW, 3000 + i - 1);
             }
             layout.addView(TexName[i], TexNameParams);
 
+            String UrlPath = fileUrl.get(i).toString();
+            int startIndex = UrlPath.lastIndexOf("/") + 1;
+            String fileNames = UrlPath.substring(startIndex, UrlPath.length());
+            String downloadPath = rootPath + fileNames;
+            File file = new File(downloadPath);
+
             TexSize[i] = new TextView(this);
-            TexSize[i].setText(fileSize.get(i).toString());
+            if (file.exists()) {
+                TexSize[i].setText("已下载");
+            } else {
+                TexSize[i].setText(fileSize.get(i).toString());
+            }
             TexSize[i].setId(4000 + i);
             TexSize[i].setTextSize(12);
             TexSize[i].setGravity(Gravity.RIGHT | Gravity.CENTER);
-            TexSize[i].setHeight(120);
+
+            TexSize[i].setHeight(Height);
             RelativeLayout.LayoutParams TexSizeParams = new RelativeLayout.LayoutParams(200, ViewGroup.LayoutParams.WRAP_CONTENT);
             TexSizeParams.rightMargin = 20;
             TexSizeParams.addRule(RelativeLayout.RIGHT_OF, 3000 + i);
@@ -136,13 +161,19 @@ public class ResourceSubActivity extends TopBarActivity {
             TexSize[i].setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Toast.makeText(ResourceSubActivity.this, "正在下载中..." + fileName.get(index).toString(), Toast.LENGTH_SHORT).show();
                     new Thread(new Runnable() {
                         @Override
                         public void run() {
                             Looper.prepare();
                             int status = new DownloadActivity().Download(fileUrl.get(index).toString(), ResourceSubActivity.this);
                             Message message = new Message();
+                            Bundle bundle = new Bundle();
+                            String UrlPath = fileUrl.get(index).toString();
+                            int startIndex = UrlPath.lastIndexOf("/") + 1;
+                            String fileName = UrlPath.substring(startIndex, UrlPath.length());
+                            String downloadPath = rootPath + fileName;
+                            bundle.putString("urlPath", downloadPath);
+                            message.setData(bundle);
                             message.what = status;
                             handler.sendMessage(message);
                             Looper.loop();
@@ -154,7 +185,6 @@ public class ResourceSubActivity extends TopBarActivity {
             TexName[i].setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Toast.makeText(ResourceSubActivity.this, "正在下载中..." + fileName.get(index).toString(), Toast.LENGTH_SHORT).show();
                     new Thread(new Runnable() {
                         @Override
                         public void run() {
@@ -162,6 +192,13 @@ public class ResourceSubActivity extends TopBarActivity {
                             int status = new DownloadActivity().Download(fileUrl.get(index).toString(), ResourceSubActivity.this);
                             Message message = new Message();
                             Log.i("status", "" + status);
+                            Bundle bundle = new Bundle();
+                            String UrlPath = fileUrl.get(index).toString();
+                            int startIndex = UrlPath.lastIndexOf("/") + 1;
+                            String fileName = UrlPath.substring(startIndex, UrlPath.length());
+                            String downloadPath = rootPath + fileName;
+                            bundle.putString("urlPath", downloadPath);
+                            message.setData(bundle);
                             message.what = status;
                             handler.sendMessage(message);
                             Looper.loop();

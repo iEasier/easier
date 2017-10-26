@@ -1,7 +1,13 @@
 package easier.com.easier.tools;
 
+import android.app.Notification;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v7.app.NotificationCompat;
 import android.util.Log;
 import android.webkit.URLUtil;
@@ -15,7 +21,9 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
 
+import easier.com.easier.MainActivity;
 import easier.com.easier.R;
+import easier.com.easier.Resource.ResourceSubActivity;
 
 public class DownloadActivity extends DialogFragmentActivity {
     private static String rootPath = "/sdcard/easier/";
@@ -37,11 +45,11 @@ public class DownloadActivity extends DialogFragmentActivity {
         String downloadPath = rootPath + fileName;
         File subFile = new File(downloadPath);
         if (!subFile.exists()) {
+            Toast.makeText(context, "正在下载中..." + fileName, Toast.LENGTH_SHORT).show();
             int status = downloadContent(UrlPath, downloadPath, context);
             Log.i("status1", "" + status);
             return status;
         } else {
-            Toast.makeText(context, Tips, Toast.LENGTH_SHORT).show();
             return 999;
         }
     }
@@ -61,13 +69,19 @@ public class DownloadActivity extends DialogFragmentActivity {
                 InputStream input = conn.getInputStream();
                 FileOutputStream write = new FileOutputStream(downloadPath);
                 byte buf[] = new byte[1024];
+                NotificationManager manager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
                 NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
+                Resources resources=context.getResources();
+                Bitmap bitmap = BitmapFactory.decodeResource(resources, R.drawable.renren);
+                Intent intent =new Intent (context,MainActivity.class);
+                PendingIntent pi = PendingIntent.getActivities(context, 0, new Intent[]{intent}, PendingIntent.FLAG_CANCEL_CURRENT);
+                builder.setContentIntent(pi);
+                builder.setLargeIcon(bitmap);
                 builder.setSmallIcon(R.drawable.pengy);
                 builder.setTicker("来自电梯宝的推荐通知");
                 builder.setContentTitle("下载");
                 builder.setContentText("正在下载");
-//        builder.setDefaults(Notification.DEFAULT_ALL);
-                NotificationManager manager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+                builder.setDefaults(Notification.DEFAULT_ALL);
                 manager.notify(NO_4, builder.build());
                 builder.setProgress(100, 0, false);
                 int sumLength = conn.getContentLength();
@@ -82,12 +96,12 @@ public class DownloadActivity extends DialogFragmentActivity {
                     // 注意强转方式，防止一直为0
                     percent = (int) (100.0 * sum / sumLength);
                     builder.setProgress(100, percent, false);
-                    //下载进度提示
+                    builder.setOnlyAlertOnce(true);
                     builder.setContentText("下载" + percent + "%");
+                    //下载进度提示
                     manager.notify(NO_4, builder.build());
                     write.write(buf, 0, read);
                 } while (true);
-                //下载完成后更改标题以及提示信息
                 builder.setContentTitle("下载完成");
                 builder.setContentText("已完成");
                 manager.notify(NO_4, builder.build());
