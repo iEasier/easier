@@ -1,6 +1,8 @@
 package easier.com.easier;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,10 +15,17 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.tencent.mm.sdk.openapi.IWXAPI;
+import com.tencent.mm.sdk.openapi.SendMessageToWX;
+import com.tencent.mm.sdk.openapi.WXAPIFactory;
+import com.tencent.mm.sdk.openapi.WXImageObject;
+import com.tencent.mm.sdk.openapi.WXMediaMessage;
+import com.tencent.mm.sdk.platformtools.Util;
+
 import easier.com.easier.tools.DialogFragmentActivity;
 import easier.com.easier.tools.NotificationActivity;
 
-public class ShareActivity extends DialogFragmentActivity{
+public class ShareActivity extends DialogFragmentActivity {
     private Button share_qq;
     private Button share_weixin;
     private TextView share_cancel;
@@ -25,7 +34,6 @@ public class ShareActivity extends DialogFragmentActivity{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.setCancelable(true);
-
     }
 
     @Override
@@ -57,7 +65,7 @@ public class ShareActivity extends DialogFragmentActivity{
             @Override
             public void onClick(View view) {
                 Log.i("QQ：", "分享执行！");
-                Intent intent = new Intent(Intent.ACTION_SEND);
+                Intent intent = new Intent(Intent.ACTION_VIEW);
                 intent.setType("image/*");
                 intent.putExtra(Intent.EXTRA_SUBJECT, "Share");
                 intent.putExtra(Intent.EXTRA_TEXT, "http://www.baidu.com");

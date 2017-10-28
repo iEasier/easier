@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
@@ -18,13 +19,14 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
+import easier.com.easier.MainActivity;
 import easier.com.easier.R;
 import easier.com.easier.ShareActivity;
 import easier.com.easier.TopBarActivity;
 import easier.com.easier.tools.InterfaceActivity;
 import easier.com.easier.tools.NotificationActivity;
 
-public class RecommendActivity extends TopBarActivity {
+public class RecommendActivity extends MainActivity {
     private static JSONObject jsonResp;
     private static JSONArray fileLists;
 
@@ -113,5 +115,13 @@ public class RecommendActivity extends TopBarActivity {
                 handler.sendMessage(message);
             }
         }).start();
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            RecommendActivity.this.finish();
+        }
+        return false;
     }
 }
