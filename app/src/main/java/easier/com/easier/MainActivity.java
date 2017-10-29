@@ -42,7 +42,6 @@ public class MainActivity extends TopBarActivity implements View.OnClickListener
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Fresco.initialize(this);
-        RegisterWeChat();
         setTitle("电梯");
         showShare();
         changeStatus();
@@ -91,7 +90,6 @@ public class MainActivity extends TopBarActivity implements View.OnClickListener
             @Override
             public void onClick(View view) {
                 Log.i("btnSix", "btnSix点击事件");
-                shareToweixin(0);
             }
         });
     }
@@ -145,42 +143,11 @@ public class MainActivity extends TopBarActivity implements View.OnClickListener
         }
     }
 
-    public void RegisterWeChat() {
-        api = WXAPIFactory.createWXAPI(this, App_ID, true);
-        api.registerApp(App_ID);
-
-    }
-
     @Override
     protected void onStart() {
         home.setBackground(getDrawable(R.drawable.home_focus));
         home_Recommend.setBackground(getDrawable(R.drawable.home_recommend));
         home_Setting.setBackground(getDrawable(R.drawable.home_setting));
         super.onStart();
-    }
-
-    private void shareToweixin(int flag) {
-
-        if (!api.isWXAppInstalled()) {
-            Toast.makeText(MainActivity.this, "您还未安装微信客户端",
-                    Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        WXWebpageObject webpage = new WXWebpageObject();
-        webpage.webpageUrl = "www.baidu.com";
-        WXMediaMessage msg = new WXMediaMessage(webpage);
-
-        msg.title = "谷歌主站";
-        msg.description = "谷歌公司（Google Inc.）成立于1998年9月4日，由拉里·佩奇和谢尔盖·布林共同创建，被公认为全球最大的搜索引擎。";
-
-        Bitmap thumb = BitmapFactory.decodeResource(getResources(), R.drawable.renren);
-
-        msg.setThumbImage(thumb);
-        SendMessageToWX.Req req = new SendMessageToWX.Req();
-        req.transaction = String.valueOf(System.currentTimeMillis());
-        req.message = msg;
-        req.scene = flag;
-        api.sendReq(req);
     }
 }

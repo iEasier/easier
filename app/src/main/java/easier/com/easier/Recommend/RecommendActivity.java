@@ -19,6 +19,7 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
+import easier.com.easier.DetailActivity;
 import easier.com.easier.MainActivity;
 import easier.com.easier.R;
 import easier.com.easier.ShareActivity;
@@ -91,9 +92,8 @@ public class RecommendActivity extends MainActivity {
                 @Override
                 public void onClick(View view) {
                     Log.i("点击文件夹", "当前点击的文件夹是" + index);
-                    Intent intent = new Intent();
-                    intent.setClass(RecommendActivity.this, NotificationActivity.class);
-                    RecommendActivity.this.startActivity(intent);
+                    DetailActivity detail = new DetailActivity();
+                    detail.show(getFragmentManager(), "");
                 }
             });
         }

@@ -1,6 +1,5 @@
 package easier.com.easier;
 
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.ColorDrawable;
@@ -14,26 +13,30 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.SendMessageToWX;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
-import com.tencent.mm.sdk.openapi.WXImageObject;
 import com.tencent.mm.sdk.openapi.WXMediaMessage;
-import com.tencent.mm.sdk.platformtools.Util;
+import com.tencent.mm.sdk.openapi.WXWebpageObject;
 
 import easier.com.easier.tools.DialogFragmentActivity;
-import easier.com.easier.tools.NotificationActivity;
 
 public class ShareActivity extends DialogFragmentActivity {
     private Button share_qq;
     private Button share_weixin;
     private TextView share_cancel;
+    // 向微信注册自己的APP_ID
+    private static final String App_ID = "wxf359b1eeb4790d8b";
+    private IWXAPI api;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.setCancelable(true);
+        api = WXAPIFactory.createWXAPI(getActivity(), App_ID, true);
+        api.registerApp(App_ID);
     }
 
     @Override
@@ -64,27 +67,15 @@ public class ShareActivity extends DialogFragmentActivity {
         share_qq.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.i("QQ：", "分享执行！");
-                Intent intent = new Intent(Intent.ACTION_VIEW);
-                intent.setType("image/*");
-                intent.putExtra(Intent.EXTRA_SUBJECT, "Share");
-                intent.putExtra(Intent.EXTRA_TEXT, "http://www.baidu.com");
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(Intent.createChooser(intent, "QQ 分享执行！"));
+                Toast.makeText(getActivity(), "QQ分享暂未开放",
+                        Toast.LENGTH_SHORT).show();
             }
         });
         // 微信分享事件
         share_weixin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.i("微信：", "分享执行！");
-                Intent intent = new Intent(Intent.ACTION_SEND);
-                intent.setType("image/*");
-                intent.putExtra(Intent.EXTRA_SUBJECT, "Share");
-                intent.putExtra("Kdescription", R.drawable.weixin);
-                intent.putExtra(Intent.EXTRA_TEXT, "http://www.baidu.com");
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(Intent.createChooser(intent, "微信 分享执行！"));
+                shareToWebChat(0);
             }
         });
         // 取消分享
@@ -95,5 +86,26 @@ public class ShareActivity extends DialogFragmentActivity {
                 ShareActivity.this.dismiss();
             }
         });
+    }
+
+    public void shareToWebChat(int flag) {
+
+        if (!api.isWXAppInstalled()) {
+            Toast.makeText(getActivity(), "您还未安装微信客户端",
+                    Toast.LENGTH_SHORT).show();
+            return;
+        }
+        WXWebpageObject webPage = new WXWebpageObject();
+        webPage.webpageUrl = "www.baidu.com";
+        WXMediaMessage msg = new WXMediaMessage(webPage);
+        msg.title = "电梯宝";
+        msg.description = "一款针对各种款式的电梯详细参考文档、密码及常见问题处理方案的App，致力于搬运文档，分析经验，解决问题的原则。为用户提供标准的资料途径！";
+        Bitmap thumb = BitmapFactory.decodeResource(getResources(), R.drawable.share_icon);
+        msg.setThumbImage(thumb);
+        SendMessageToWX.Req req = new SendMessageToWX.Req();
+        req.transaction = String.valueOf(System.currentTimeMillis());
+        req.message = msg;
+        req.scene = flag;
+        api.sendReq(req);
     }
 }

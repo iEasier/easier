@@ -11,9 +11,6 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 
-/**
- * Created by Administrator on 2017/10/16.
- */
 
 public class DialogFragmentActivity extends DialogFragment {
 

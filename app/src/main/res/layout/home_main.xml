@@ -19,7 +19,7 @@
             <Button
                 android:id="@+id/btnOne"
                 android:layout_width="0dp"
-                android:layout_height="155dp"
+                android:layout_height="170dp"
                 android:layout_weight="1"
                 android:onClick="click"
                 android:text="@string/home_btnOne" />
@@ -27,7 +27,7 @@
             <Button
                 android:id="@+id/btnTwo"
                 android:layout_width="0dp"
-                android:layout_height="155dp"
+                android:layout_height="170dp"
                 android:layout_weight="1"
                 android:onClick="click"
                 android:text="@string/home_btnTwo" />
@@ -43,7 +43,7 @@
             <Button
                 android:id="@+id/btnThree"
                 android:layout_width="0dp"
-                android:layout_height="155dp"
+                android:layout_height="170dp"
                 android:layout_weight="1"
                 android:onClick="click"
                 android:text="@string/home_btnThree" />
@@ -51,7 +51,7 @@
             <Button
                 android:id="@+id/btnFour"
                 android:layout_width="0dp"
-                android:layout_height="155dp"
+                android:layout_height="170dp"
                 android:layout_weight="1"
                 android:onClick="click"
                 android:text="@string/home_btnFour" />
@@ -66,7 +66,7 @@
             <Button
                 android:id="@+id/btnFive"
                 android:layout_width="0dp"
-                android:layout_height="155dp"
+                android:layout_height="170dp"
                 android:layout_weight="1"
                 android:onClick="click"
                 android:text="@string/home_btnFive" />
@@ -74,7 +74,7 @@
             <Button
                 android:id="@+id/btnSix"
                 android:layout_width="0dp"
-                android:layout_height="155dp"
+                android:layout_height="170dp"
                 android:layout_weight="1"
                 android:onClick="click"
                 android:text="@string/home_btnSix" />
