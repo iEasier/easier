@@ -13,7 +13,7 @@ import java.net.URL;
 
 public class InterfaceActivity {
 
-    private static String strURL = "http://172.16.1.188:8080/ieasier/";
+    private static String strURL = "http://mylove.vicp.net/ieasier/";
     private static String ENCODING_UTF_8 = "UTF-8";
 
     /**
