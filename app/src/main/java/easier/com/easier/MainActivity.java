@@ -32,10 +32,6 @@ public class MainActivity extends TopBarActivity implements View.OnClickListener
     private Button home_Recommend;
     private Button home;
     private Button home_Setting;
-    // 向微信注册自己的APP_ID
-    private static final String App_ID = "wxf359b1eeb4790d8b";
-    private static final String AppSecret = "d47c7f016918c5cd135f09aab5eafb14";
-    private IWXAPI api;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

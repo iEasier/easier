@@ -29,6 +29,7 @@ public class ShareActivity extends DialogFragmentActivity {
     private TextView share_cancel;
     // 向微信注册自己的APP_ID
     private static final String App_ID = "wxf359b1eeb4790d8b";
+    private static final String AppSecret = "d47c7f016918c5cd135f09aab5eafb14";
     private IWXAPI api;
 
     @Override
@@ -96,11 +97,12 @@ public class ShareActivity extends DialogFragmentActivity {
             return;
         }
         WXWebpageObject webPage = new WXWebpageObject();
-        webPage.webpageUrl = "www.baidu.com";
+        webPage.webpageUrl = "mylove.vicp.net";
         WXMediaMessage msg = new WXMediaMessage(webPage);
+
         msg.title = "电梯宝";
-        msg.description = "一款针对各种款式的电梯详细参考文档、密码及常见问题处理方案的App，致力于搬运文档，分析经验，解决问题的原则。为用户提供标准的资料途径！";
-        Bitmap thumb = BitmapFactory.decodeResource(getResources(), R.drawable.share_icon);
+        msg.description = "致力于搬运文档，分析经验，解决问题的原则.针对各种款式的电梯详细参考文档、密码及常见问题处理方案的App，为用户提供标准的资料途径！";
+        Bitmap thumb = BitmapFactory.decodeResource(getResources(), R.drawable.share_pic);
         msg.setThumbImage(thumb);
         SendMessageToWX.Req req = new SendMessageToWX.Req();
         req.transaction = String.valueOf(System.currentTimeMillis());
