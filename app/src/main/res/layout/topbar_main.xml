@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <!--<include layout="@layout/top_main" />-->
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/top_main"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:background="@drawable/background" >
+        android:background="@drawable/background">
 
         <TextView
             android:id="@+id/text_title"
@@ -19,25 +20,80 @@
             android:textColor="#ffffffff"
             android:textSize="20dp" />
 
-        <Button
-            android:id="@+id/button_backward"
-            android:layout_width="40dp"
+        <!--Search-->
+        <LinearLayout
+            android:id="@+id/linearSearch"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:gravity="center"
+                android:text="@string/search"
+                android:textColor="@color/style_white"
+                android:textSize="7pt" />
+
+            <ImageView
+                android:layout_width="14dp"
+                android:layout_height="13dp"
+                android:layout_marginLeft="4dp"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/search"
+                android:gravity="center" />
+        </LinearLayout>
+        <!--Back-->
+        <LinearLayout
+            android:id="@+id/linearBackward"
+            android:layout_width="50dp"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/Image_backward"
+                android:layout_width="13dp"
+                android:layout_height="26dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="7dp"
+                android:background="@drawable/back"
+                android:drawablePadding="6dp"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:paddingLeft="5dp"
+                android:scaleType="centerInside"
+                android:textColor="#ffffffff"
+                android:textSize="18dp" />
+        </LinearLayout>
+        <!--Search Input-->
+        <LinearLayout
+            android:id="@+id/linearSearchInput"
+            android:layout_width="200dp"
             android:layout_height="match_parent"
-            android:background="@drawable/back"
-            android:drawablePadding="6dp"
-            android:ellipsize="end"
+            android:layout_marginLeft="80dp"
             android:gravity="center"
-            android:onClick="onClick"
-            android:paddingLeft="5dp"
-            android:textColor="#ffffffff"
-            android:textSize="18dp"
-            android:visibility="invisible" />
+            android:visibility="invisible">
+
+            <EditText
+                android:id="@+id/search_input"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:layout_marginTop="2dp"
+                android:background="@drawable/search_background"
+                android:gravity="center"
+                android:hint="请输入关键字"
+                android:inputType="text"
+                android:paddingLeft="10dp"
+                android:paddingRight="32dp"
+                android:textSize="7pt" />
+        </LinearLayout>
 
         <Button
             android:id="@+id/button_forward"
-            android:layout_width="40dp"
-            android:layout_height="match_parent"
+            android:layout_width="13dp"
+            android:layout_height="26dp"
             android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="7dp"
             android:background="@drawable/forward"
             android:drawablePadding="6dp"
             android:ellipsize="end"
@@ -53,11 +109,26 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="5dp"
             android:background="@drawable/share"
             android:onClick="onClick"
-            android:layout_marginTop="5dp"
-            android:layout_marginRight="10dp"
             android:textColor="#ffffffff"
+            android:visibility="invisible" />
+
+        <!--Confirm Search-->
+        <TextView
+            android:id="@+id/confirm_Search"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="5dp"
+            android:gravity="center"
+            android:onClick="onClick"
+            android:text="@string/search"
+            android:textColor="@color/style_white"
+            android:textSize="7pt"
             android:visibility="invisible" />
 
     </RelativeLayout>
@@ -66,7 +137,6 @@
         android:id="@+id/topbar_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#fff" >
-    </FrameLayout>
+        android:background="#fff"></FrameLayout>
 
 </LinearLayout>

@@ -133,9 +133,9 @@ public class InterfaceActivity {
                 stringBuffer.append(str);
             }
             result = stringBuffer.toString();
-        } catch (IOException ex) {
+        } catch (Exception ex) {
             result = "{'retCode':-1}";
-            Log.e("调取接口异常", ex.getMessage());
+            Log.e("调取接口异常","");
         } finally {
             try {
                 if (in != null) {

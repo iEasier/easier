@@ -59,10 +59,10 @@ public class ResourceSubActivity extends TopBarActivity {
         Intent intent = getIntent();
         String fileName = intent.getStringExtra("fileName");
         setTitle(fileName);
-        showBackwardView(R.id.button_backward, false, true);
+        showBackOrSearch(true);
         showShare();
         SendRequest("getFileContent", fileName);
-        button_backward = findViewById(R.id.button_backward);
+        button_backward = findViewById(R.id.Image_backward);
         button_backward.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

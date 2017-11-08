@@ -7,4 +7,5 @@
     <color name="style_white">#FFFFFF</color>
     <color name="style_home">#D6D7D7</color>
     <color name="style_topBar">#202128</color>
+    <color name="transparent">#00000000</color>
 </resources>

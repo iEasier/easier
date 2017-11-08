@@ -21,6 +21,7 @@
                 android:layout_width="0dp"
                 android:layout_height="170dp"
                 android:layout_weight="1"
+                android:minHeight="0dp"
                 android:onClick="click"
                 android:text="@string/home_btnOne" />
 
@@ -29,6 +30,7 @@
                 android:layout_width="0dp"
                 android:layout_height="170dp"
                 android:layout_weight="1"
+                android:minHeight="0dp"
                 android:onClick="click"
                 android:text="@string/home_btnTwo" />
         </LinearLayout>
@@ -45,6 +47,7 @@
                 android:layout_width="0dp"
                 android:layout_height="170dp"
                 android:layout_weight="1"
+                android:minHeight="0dp"
                 android:onClick="click"
                 android:text="@string/home_btnThree" />
 
@@ -53,6 +56,7 @@
                 android:layout_width="0dp"
                 android:layout_height="170dp"
                 android:layout_weight="1"
+                android:minHeight="0dp"
                 android:onClick="click"
                 android:text="@string/home_btnFour" />
         </LinearLayout>
@@ -68,6 +72,7 @@
                 android:layout_width="0dp"
                 android:layout_height="170dp"
                 android:layout_weight="1"
+                android:minHeight="0dp"
                 android:onClick="click"
                 android:text="@string/home_btnFive" />
 
@@ -76,6 +81,7 @@
                 android:layout_width="0dp"
                 android:layout_height="170dp"
                 android:layout_weight="1"
+                android:minHeight="0dp"
                 android:onClick="click"
                 android:text="@string/home_btnSix" />
         </LinearLayout>
@@ -97,7 +103,6 @@
             android:id="@+id/home_Recommend"
             android:layout_width="35dp"
             android:layout_height="35dp"
-
             android:layout_marginLeft="63.5dp"
             android:background="@drawable/home_recommend"
             android:onClick="click" />

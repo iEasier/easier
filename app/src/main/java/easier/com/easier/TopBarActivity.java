@@ -1,13 +1,20 @@
 package easier.com.easier;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * 自定义标题栏
@@ -15,10 +22,14 @@ import android.widget.TextView;
 public class TopBarActivity extends Activity {
 
     private TextView mTitleTextView;
-    private Button mBackwardbButton;
+    private ImageView mBackward;
     private Button mForwardButton;
     private FrameLayout mContentLayout;
     private Button mshareButton;
+    private LinearLayout linearBackward;
+    private LinearLayout linearSearch;
+    private LinearLayout linearSearchInput;
+    private TextView confirm_Search;
 
 
     @Override
@@ -33,31 +44,56 @@ public class TopBarActivity extends Activity {
         super.setContentView(R.layout.topbar_main);
         mTitleTextView = findViewById(R.id.text_title);
         mContentLayout = findViewById(R.id.topbar_main);
-        mBackwardbButton = findViewById(R.id.button_backward);
+        mBackward = findViewById(R.id.Image_backward);
         mForwardButton = findViewById(R.id.button_share);
         mshareButton = findViewById(R.id.button_share);
+        linearBackward = findViewById(R.id.linearBackward);
+        linearSearch = findViewById(R.id.linearSearch);
+        linearSearchInput = findViewById(R.id.linearSearchInput);
+        confirm_Search = findViewById(R.id.confirm_Search);
+        confirm_Search.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(TopBarActivity.this, "搜索功能暂时未开放", Toast.LENGTH_SHORT).show();
+            }
+        });
+        linearSearch.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent();
+                intent.setClass(TopBarActivity.this, SearchActivity.class);
+                startActivity(intent);
+
+            }
+        });
+        linearBackward.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
     }
 
     /**
      * 是否显示返回按钮
      *
-     * @param backwardResId 文字
-     * @param showTitle     true则显示文字
-     * @param showImage     true则显示图标
+     * @param showBack 文字
      */
-    protected void showBackwardView(int backwardResId, boolean showTitle, boolean showImage) {
-        if (showImage) {
-            if (mBackwardbButton != null) {
-                if (showTitle) {
-                    mBackwardbButton.setText(backwardResId);
-                    mBackwardbButton.setVisibility(View.VISIBLE);
-                } else {
-                    mBackwardbButton.setVisibility(View.VISIBLE);
-                }
-            } // else ignored
+    protected void showBackOrSearch(Boolean showBack) {
+        if (showBack) {
+            linearSearch.setVisibility(View.INVISIBLE);
+            linearBackward.setVisibility(View.VISIBLE);
         } else {
-            mBackwardbButton.setVisibility(View.INVISIBLE);
+            linearSearch.setVisibility(View.VISIBLE);
+            linearBackward.setVisibility(View.INVISIBLE);
         }
+    }
+
+    public void showSearchInput() {
+        linearSearch.setVisibility(View.INVISIBLE);
+        confirm_Search.setVisibility(View.VISIBLE);
+        linearSearchInput.setVisibility(View.VISIBLE);
     }
 
     /**

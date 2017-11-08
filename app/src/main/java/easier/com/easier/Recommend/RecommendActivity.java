@@ -50,14 +50,7 @@ public class RecommendActivity extends MainActivity {
         showShare();
 //        SendRequest();
         createViews(jsonResp);
-        showBackwardView(R.id.button_backward, false, true);
-        Button button_backward = findViewById(R.id.button_backward);
-        button_backward.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                RecommendActivity.this.finish();
-            }
-        });
+        showBackOrSearch(true);
     }
 
     public void createViews(JSONObject jsonResp) {

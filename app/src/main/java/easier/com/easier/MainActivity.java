@@ -39,6 +39,7 @@ public class MainActivity extends TopBarActivity implements View.OnClickListener
         setContentView(R.layout.activity_main);
         Fresco.initialize(this);
         setTitle("电梯");
+        showBackOrSearch(false);
         showShare();
         changeStatus();
         // 首页六个按钮

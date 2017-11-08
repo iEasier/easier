@@ -11,6 +11,7 @@ import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -47,16 +48,9 @@ public class ResourceActivity extends TopBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.resources_main);
         setTitle("技术库资料");
-        showBackwardView(R.id.button_backward, false, true);
+        showBackOrSearch(true);
         showShare();
         SendRequest("getFileList");
-        Button button_backward = findViewById(R.id.button_backward);
-        button_backward.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ResourceActivity.this.finish();
-            }
-        });
     }
 
     @Override
