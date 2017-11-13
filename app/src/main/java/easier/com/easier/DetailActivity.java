@@ -57,7 +57,9 @@ public class DetailActivity extends DialogFragmentActivity implements View.OnCli
                 .setFadeDuration(5000)
                 //构建
                 .build();
-        Log.i("here","here");
+        Intent intent = getActivity().getIntent();
+        String uri = intent.getStringExtra("uri");
+        Log.i("here", "" + uri);
         RoundingParams rp = new RoundingParams();
         rp.setRoundAsCircle(true);
         View view = inflater.inflate(R.layout.detail_main, container);
@@ -68,7 +70,7 @@ public class DetailActivity extends DialogFragmentActivity implements View.OnCli
         detail_textView = view.findViewById(R.id.detail_textView);
         detail_cancel = view.findViewById(R.id.detail_cancel);
         detail_call = view.findViewById(R.id.detail_call);
-        Uri uri = Uri.parse("http://image5.tuku.cn/pic/wallpaper/fengjing/menghuandaziranmeijingbizhi/009.jpg");
+//        Uri uri = Uri.parse("http://image5.tuku.cn/pic/wallpaper/fengjing/menghuandaziranmeijingbizhi/009.jpg");
         detail_simpleDraw.setImageURI(uri);
         detail_simpleDraw.setHierarchy(hierarchy);
         String text = "咨询人员:方先生\n";

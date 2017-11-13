@@ -32,7 +32,7 @@ import easier.com.easier.tools.OpenFileActivity;
 
 public class ResourceSubActivity extends TopBarActivity {
     private static JSONObject jsonResp;
-    private Button button_backward;
+    private ImageView Image_backward;
     private static String rootPath = "/sdcard/easier/";
 
     Handler handler = new Handler() {
@@ -62,8 +62,8 @@ public class ResourceSubActivity extends TopBarActivity {
         showBackOrSearch(true);
         showShare();
         SendRequest("getFileContent", fileName);
-        button_backward = findViewById(R.id.Image_backward);
-        button_backward.setOnClickListener(new View.OnClickListener() {
+        Image_backward = findViewById(R.id.Image_backward);
+        Image_backward.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ResourceSubActivity.this.finish();

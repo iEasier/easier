@@ -30,7 +30,7 @@ public class InterfaceActivity {
             jsonResp.put("retCode", -1);
             Log.e("接口调用失败：", e.getMessage());
         }
-        Log.d("接口调用结果", jsonResp.toString());
+        Log.i("接口调用结果", jsonResp.toString());
         return jsonResp;
     }
 

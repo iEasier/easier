@@ -19,6 +19,9 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import easier.com.easier.DetailActivity;
 import easier.com.easier.MainActivity;
 import easier.com.easier.R;
@@ -29,7 +32,7 @@ import easier.com.easier.tools.NotificationActivity;
 
 public class RecommendActivity extends MainActivity {
     private static JSONObject jsonResp;
-    private static JSONArray fileLists;
+    private static JSONArray imagesUrl;
 
     Handler handler = new Handler() {
         @Override
@@ -48,25 +51,22 @@ public class RecommendActivity extends MainActivity {
         setContentView(R.layout.recommend_main);
         setTitle("推荐");
         showShare();
-//        SendRequest();
-        createViews(jsonResp);
+        SendRequest("getRecommends");
         showBackOrSearch(true);
     }
 
     public void createViews(JSONObject jsonResp) {
-//        fileLists = jsonResp.getJSONArray("fileNames");
-        Drawable drawable = this.getDrawable(R.drawable.default_pic);
+        imagesUrl = jsonResp.getJSONArray("imagesUrl");
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         int widthPixels = displayMetrics.widthPixels;
         RelativeLayout layout = this.findViewById(R.id.recommend_main);
-//        int length = fileLists.size();
-        int length = 20;
-        Button Btn[] = new Button[length];
+        int length = imagesUrl.size();
+        Log.i("length", "" + length);
         SimpleDraweeView simpleDraweeView[] = new SimpleDraweeView[length];
         int j = -1;
-        Uri uri = Uri.parse("http://image5.tuku.cn/pic/wallpaper/fengjing/menghuandaziranmeijingbizhi/009.jpg");
         for (int i = 0; i < length; i++) {
+            Uri uri = Uri.parse(imagesUrl.get(i).toString());
             simpleDraweeView[i] = new SimpleDraweeView(this);
             simpleDraweeView[i].setId(5000 + i);
             simpleDraweeView[i].setImageURI(uri);
@@ -85,8 +85,12 @@ public class RecommendActivity extends MainActivity {
                 @Override
                 public void onClick(View view) {
                     Log.i("点击文件夹", "当前点击的文件夹是" + index);
-                    DetailActivity detail = new DetailActivity();
-                    detail.show(getFragmentManager(), "");
+//                    DetailActivity detail = new DetailActivity();
+                    Intent intent = new Intent();
+                    intent.setClass(RecommendActivity.this,DetailActivity.class);
+                    intent.putExtra("uri", Uri.parse(imagesUrl.get(index).toString()));
+                    startActivity(intent);
+//                    detail.show(getFragmentManager(), "");
                 }
             });
         }
